@@ -1,6 +1,6 @@
 import flask
 import app.utils.config as config
-import app.controlador.route as resumen_route
+import app.controller.route as resumen_route
 import app.gateways.rabbit_service as rabbitService
 from flask_cors import CORS
 
@@ -14,10 +14,11 @@ class MainApp:
 
 	def resumenVentas(self):
 		resumen_route.init(self.flask_app)
+		
 	
 
 	def _init_rabbit(self):
-    		rabbitService.init()
+    		rabbitService.	init()
 
 
 	def start(self,debug=True):
