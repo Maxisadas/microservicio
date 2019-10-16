@@ -1,6 +1,7 @@
-def obtener_bd():
-	host = "localhost"
-	puerto = "27017"
-	base_de_datos = "stats"
-	cliente = MongoClient("mongodb://{}:{}@{}:{}".format("","",host,puerto))
-	return cliente[base_de_datos]
+from pymongo import MongoClient
+
+def conectar_bd():		
+	MONGO_URL = "mongodb://localhost"
+	client = MongoClient(MONGO_URL)
+	return	client['stats']
+

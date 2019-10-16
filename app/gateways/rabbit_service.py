@@ -53,7 +53,7 @@ def listenAuth():
 
     @apiExample {json} Mensaje
       {
-        "type": "article-exist",
+        "type": "resumen_exist",
         "message" : "tokenId"
       }
     """
