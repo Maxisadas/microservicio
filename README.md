@@ -7,21 +7,15 @@ Es un microservicio que realiza estadisticas de ventas, productos mas vendidos, 
 La documentación de las api también se pueden consultar desde el home del microservicio
 que una vez levantado el servidor se puede navegar en [localhost:5000](http://localhost:5000/)
 
-## Dependencias
+##Casos de uso.
 
-### Auth
+###Caso de uso 1: Consultar total de ventas.
 
-El catálogo sólo puede usarse por usuario autenticados, algunas operaciones como agregar un artículo nuevo requieren que el usuario sea "admin", ver la arquitectura de microservicios de [ecommerce](https://github.com/nmarsollier/ecommerce).
+El CU 1 se encarga de enviar al usuario, un resumen de todo el dinero generado por las ventas en total, describiendo las ventas por unidad y el total. 
+###Caso de uso 2:Consultar productos más vendidos.
 
-### MongoDb
+El caso de uso se encarga de enviar al usuario, un ranking de los productos más vendidos ordenados de mayor cantidad de productos vendidos,  al menor.
 
-Ver tutorial de instalación en [README.md](../README.md) en la raíz.
-
-### RabbitMQ
-
-La comunicación con Catalog y Auth es a través de rabbit.
-
-Ver tutorial de instalación en [README.md](../README.md) en la raíz.
 
 ## Apidoc
 
