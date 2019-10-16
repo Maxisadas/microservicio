@@ -7,12 +7,12 @@ Es un microservicio que realiza estadisticas de ventas, productos mas vendidos, 
 La documentación de las api también se pueden consultar desde el home del microservicio
 que una vez levantado el servidor se puede navegar en [localhost:5000](http://localhost:5000/)
 
-##Casos de uso.
+## Casos de uso.
 
-###Caso de uso 1: Consultar total de ventas.
+### Caso de uso 1: Consultar total de ventas.
 
 El CU 1 se encarga de enviar al usuario, un resumen de todo el dinero generado por las ventas en total, describiendo las ventas por unidad y el total. 
-###Caso de uso 2:Consultar productos más vendidos.
+### Caso de uso 2:Consultar productos más vendidos.
 
 El caso de uso se encarga de enviar al usuario, un ranking de los productos más vendidos ordenados de mayor cantidad de productos vendidos,  al menor.
 
