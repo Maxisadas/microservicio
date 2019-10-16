@@ -8,11 +8,15 @@ class MainApp:
 	def __init__(self):
 		self.flask_app = flask.Flask(__name__)
 		CORS(self.flask_app, supports_credentials=True, automatic_options=True)
+		self._generate_api_doc()
 		self._init_rabbit()
-		self.resumenVentas()
+		self.resumenstats()
+
+	def _generate_api_doc(self):
+		os.system("apidoc -i ./ -o ./public")	
 
 
-	def resumenVentas(self):
+	def resumenstats(self):
 		resumen_route.init(self.flask_app)
 		
 	

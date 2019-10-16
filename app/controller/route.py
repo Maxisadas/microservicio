@@ -5,6 +5,11 @@ import app.utils.json_serializer as json
 
 
 def init(app):
+
+    """
+    Inicializa las rutas para Articulos\n
+    app: Flask
+    """	
 	@app.route("/v1/stats")
 	def index():
 
