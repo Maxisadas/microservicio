@@ -14,6 +14,10 @@ def init(app):
 	def index():
 
 		return '<h1>Probando 1...2...3...</h1>'
+
+	"""
+	Caso de uso 1.
+	"""
 	@app.route("/v1/stats/sells",methods=["GET"])
 	def total_sells():
 		try:
