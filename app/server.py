@@ -2,6 +2,7 @@ import flask
 import app.utils.config as config
 import app.controller.route as resumen_route
 import app.gateways.rabbit_service as rabbitService
+import app.gateways.order_service as order_service
 import os
 from flask_cors import CORS
 
@@ -10,7 +11,9 @@ class MainApp:
 		self.flask_app = flask.Flask(__name__)
 		CORS(self.flask_app, supports_credentials=True, automatic_options=True)
 		self._generate_api_doc()
+		self._init_routes()
 		self._init_rabbit()
+		self._init_order()
 		self.resumenstats()
 
 	def _generate_api_doc(self):
@@ -19,11 +22,22 @@ class MainApp:
 
 	def resumenstats(self):
 		resumen_route.init(self.flask_app)
+	def _init_routes(self):
+		# Servidor de archivos estáticos de apidoc
+		# Por el momento se genera con ../auth/node_modules/.bin/apidoc -i ./ -o public
+		@self.flask_app.route('/<path:path>')
+		def api_index(path):
+			return flask.send_from_directory('../public', path)
+
+
+		@self.flask_app.route('/')
+		def index():
+			return flask.send_from_directory('../public', "index.html")
 		
 	
 
 	def _init_rabbit(self):
-    		rabbitService.	init()
+    		rabbitService.init()
 
 
 	def start(self,debug=True):
@@ -31,4 +45,6 @@ class MainApp:
 
 	def get_flask_app(self):
     		return self.flask_app
+	def _init_order(self):
+		order_service.init()
 

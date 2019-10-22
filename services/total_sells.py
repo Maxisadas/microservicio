@@ -1,8 +1,4 @@
-import app.gateways.mongo_service as mongo
 
-	##db = mongo.conectar_bd()
-	##collection = db['orders']
-	##collection.insert_one({"probando":123})
 
 def total_sells():
 	
@@ -18,16 +14,17 @@ def total_sells():
     @apiSuccessExample {json} Respuesta
         HTTP/1.1 200 OK
         {
-			"sells":[{
-				"order_id": "id de la orden"
-				"total": "El dinero total obtenido por la orden"
+            {
+                "articles_sells": [{
+                    "id": "articleId",
+                    "quantity": {quantity}
+                }], ...  
+            }
 
-			}]
-			"total_sales":"Dinero total obtenido de todas las ordenes"
         }
 
     @apiUse Errors
 
     """
-    pass
+    
 
