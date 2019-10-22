@@ -2,6 +2,7 @@ import flask
 import app.utils.config as config
 import app.controller.route as resumen_route
 import app.gateways.rabbit_service as rabbitService
+import os
 from flask_cors import CORS
 
 class MainApp:

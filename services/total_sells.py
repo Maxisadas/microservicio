@@ -3,6 +3,7 @@ import app.gateways.mongo_service as mongo
 	##db = mongo.conectar_bd()
 	##collection = db['orders']
 	##collection.insert_one({"probando":123})
+
 def total_sells():
 	
 	"""
@@ -28,5 +29,5 @@ def total_sells():
     @apiUse Errors
 
     """
-
+    pass
 

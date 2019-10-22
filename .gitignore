@@ -1,2 +1,9 @@
 public/
-README-API.md
+.vscode
+*.pyc
+public
+test
+.pytest_cache/
+
+
+

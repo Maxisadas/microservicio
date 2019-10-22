@@ -6,18 +6,7 @@ import app.utils.json_serializer as json
 
 def init(app):
 
-    """
-    Inicializa las rutas para Articulos\n
-    app: Flask
-    """	
-	@app.route("/v1/stats")
-	def index():
 
-		return '<h1>Probando 1...2...3...</h1>'
-
-	"""
-	Caso de uso 1.
-	"""
 	@app.route("/v1/stats/sells",methods=["GET"])
 	def total_sells():
 		try:
