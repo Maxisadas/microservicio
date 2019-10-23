@@ -5,6 +5,7 @@ import traceback
 
 import pika
 import app.utils.config as config
+import app.utils.json_serializer as json
 
 
 

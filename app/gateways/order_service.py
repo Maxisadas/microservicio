@@ -2,8 +2,12 @@ import threading
 import traceback
 import pika
 import app.utils.config as config
+import services.total_sells as service
+import app.utils.json_serializer as json
 
-##CONSUMIR COLA DE ORDER DE RABBITMQ PARA TRAER LAS ORDENES.
+
+
+##CONSUMIR COLA DE ORDER DE RABBITMQ PARA TRAER LAS ORDENES Y ALMACENARLAS.
 def init():
     initOrder()
 
@@ -13,6 +17,7 @@ def initOrder():
 def listenOrder():
 
     EXCHANGE = "stats"
+    QUEUE = "order_placed"
 
     try:
         connection = pika.BlockingConnection(
@@ -22,15 +27,15 @@ def listenOrder():
 
         channel.exchange_declare(exchange=EXCHANGE, exchange_type='topic')
 
-        result = channel.queue_declare('', exclusive=True)
+        result = channel.queue_declare(QUEUE)
         queue_name = result.method.queue
 
-        print(queue_name)
+        channel.queue_bind(exchange=EXCHANGE, queue=queue_name)
 
         def callback(ch, method, properties, body):
             event = json.body_to_dic(body.decode('utf-8'))
-            print(event)
-            return event
+            resp = service.saveOrders(event)
+            ##return event
         
 
 

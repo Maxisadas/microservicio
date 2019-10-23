@@ -2,6 +2,7 @@ import flask
 import app.utils.security as security
 import app.utils.errors as errors
 import app.utils.json_serializer as json
+import services.total_sells as service
 
 
 def init(app):
@@ -11,8 +12,6 @@ def init(app):
 	def total_sells():
 		try:
 			security.validateAdminRole(flask.request.headers.get("Authorization"))
-			params = json.body_to_dic(flask.request.data)
-			print('params')
-			return json.dic_to_json(params)
+			return json.dic_to_json(service.total_sells()),200
 		except Exception as err:
 			return errors.handleError(err)
