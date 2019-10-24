@@ -4,24 +4,34 @@ import datetime
 import numbers
 
 
-def saveOrder(event):
+def saveArticles(event):
 
-
+    print("AGREGANDO ARTICULOS")
     db = mongo.conectar_bd()
-    collection = db.orders
-    collection.insert(createOrder(event))
+    collection = db.articles
+    collection.insert(createArticle(event))
 
+def updateArticles(article):
+    
+    print("ACTUALIZANDO ARTICULOS")
+  
+    db = mongo.conectar_bd()
+    collection = db.articles
+    result = collection.find_and_modify({'articleId':article["articleId"]},{'$set': {"quantity": article["quantity"]}})
+    print(result)
 
 
     
-def createOrder(order):
+def createArticle(article):
 
     return {
-        "orderId" : order["message"]["orderId"],
-        "articles" : order["message"]["articles"]
+        "articleId" : article["articleId"],
+        "quantity" : article["quantity"]
+
     }
 
-def loadOrders():
+
+def loadAllArticles():
     db = mongo.conectar_bd()
-    collection = db.orders
+    collection = db.articles
     return collection.find({})
