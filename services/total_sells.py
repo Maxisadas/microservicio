@@ -1,5 +1,6 @@
 import app.model.order_scheme as orderScheme
 
+
 """
 Esta funcion guarda los articulos vendido de las ordenes que nos entrega la cola de Rabbitmq, se hace verificaciones de si el producto del vendedor, ya esta en la base de datos , 
 entoneces se le suma y se actualiza. En caso contrario, se crear el nuevo articulo vendido.
@@ -20,6 +21,7 @@ def saveOrders(event):
     else:
         for article in event["message"]["articles"]:
             orderScheme.saveArticles(article)
+            
 
 
 
@@ -27,7 +29,7 @@ def saveOrders(event):
 ## FUNCION DEL CASO DE USO:ESTADISTICA DE VENTAS ##########
 def total_sells():
     """
-    ENTREGAMOS EL TOTAL DE ARTICULOS VENDIDOS.
+    ENTREGAMOS EL TOTAL DE ARTICULOS VENDIDOS, CON SUS RESPECTIVOS ARTICULOS Y CANTIDAD.
 
     @api {get} /v1/stats/sells Generar estadistica de ventas
     @apiName Consultar total de ventas
@@ -66,3 +68,39 @@ def total_sells():
     }
 
 
+def sendRabbit():
+    """
+    Envio las estadisticas de las ventas de los usuarios, a la cola de rabbit para que otro microservicio lo quiera consumir.
+
+    Se que se es igual al metodo total_sells(), pero por ahi en un futuro algo se tendria que cambiar al enviar la informacion a la cola de rabbit,y por ende es mejor tener ambos metodos 
+    por separados.
+
+    @api {topic} stats/stats Envio de estadisticas
+
+    @apiGroup RabbitMQ GET
+
+    @apiDescription Envio de estadisticas de los vendedores a la cola de rabbit para que cualquier otro microservicio lo pueda consumir.
+
+    @apiExample {json} Mensaje
+    {
+        {
+        "articles_more_sold": [{
+            "id": "articleId",
+            "quantity": {quantity}
+            }], ...  
+        "totals_sell={int}"    
+        }
+        
+
+    }
+    """
+    total_articles = 0
+    total_sells = []
+    for article in orderScheme.loadAllArticles():
+        total_articles += article["quantity"]
+        total_sells.append(article)
+    return {
+        "articles_more_sold" : total_sells,
+        "totals_sell": total_articles
+        
+    }

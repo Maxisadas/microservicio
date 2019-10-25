@@ -7,15 +7,19 @@ Es un microservicio que realiza estadisticas de ventas, productos mas vendidos, 
 La documentación de las api también se pueden consultar desde el home del microservicio
 que una vez levantado el servidor se puede navegar en [localhost:5000](http://localhost:5000/)
 
+# No se olvide de instalar las librerias!.
+
+```bash
+pip install -U -r requirements.txt
+```
+
 ## Casos de uso.
 
-### Caso de uso 1: Consultar total de ventas.
+### Caso de uso 1: Consultar productos más vendidos.
 
-El CU 1 se encarga de enviar al usuario, un resumen de todo el dinero generado por las ventas en total, describiendo las ventas por unidad y el total. 
-### Caso de uso 2:Consultar productos más vendidos.
+Buscar todas las ventas del usuario, y calcula la cantidad de productos de todas las ventas del usuario, y devuelve un ranking (una lista) de los productos más vendidos.
 
-El caso de uso se encarga de enviar al usuario, un ranking de los productos más vendidos ordenados de mayor cantidad de productos vendidos,  al menor.
-
+### Si desea consumir los mensajes que envia el microservicio, debe consumir los mensajes del exchange:stats , queue:stats.
 
 ## Apidoc
 

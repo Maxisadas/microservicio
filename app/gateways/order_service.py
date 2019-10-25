@@ -4,7 +4,7 @@ import pika
 import app.utils.config as config
 import services.total_sells as service
 import app.utils.json_serializer as json
-
+import app.gateways.stats_service as statsService
 
 
 ##CONSUMIR COLA DE ORDER DE RABBITMQ PARA TRAER LAS ORDENES Y ALMACENARLAS.
@@ -20,9 +20,11 @@ def listenOrder():
     QUEUE = "order_placed"
 
     try:
+        
         connection = pika.BlockingConnection(
             pika.ConnectionParameters(host=config.get_rabbit_server_url())
         )
+        
         channel = connection.channel()
 
         channel.exchange_declare(exchange=EXCHANGE, exchange_type='topic')
@@ -33,9 +35,10 @@ def listenOrder():
         channel.queue_bind(exchange=EXCHANGE, queue=queue_name)
 
         def callback(ch, method, properties, body):
+            
             event = json.body_to_dic(body.decode('utf-8'))
-            resp = service.saveOrders(event)
-            ##return event
+            resp = service.saveOrders(event) ## Se recibe una orden y se calcula la estadistica y se guarda los articulos en la base de datos.
+            statsService.sendStats()## Se envia a la cola de rabbit , luego de que se haya calculado la estadistica al recibir una orden.
         
 
 

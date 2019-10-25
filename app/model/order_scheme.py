@@ -6,19 +6,19 @@ import numbers
 
 def saveArticles(event):
 
-    print("AGREGANDO ARTICULOS")
+    print("AGREGANDO ESTADISTICA DE ARTICULOS")
     db = mongo.conectar_bd()
     collection = db.articles
     collection.insert(createArticle(event))
 
 def updateArticles(article):
     
-    print("ACTUALIZANDO ARTICULOS")
+    print("ACTUALIZANDO ESTADISTICAS DE ARTICULOS")
   
     db = mongo.conectar_bd()
     collection = db.articles
     result = collection.find_and_modify({'articleId':article["articleId"]},{'$set': {"quantity": article["quantity"]}})
-    print(result)
+
 
 
     
