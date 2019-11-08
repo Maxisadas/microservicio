@@ -13,6 +13,8 @@ que una vez levantado el servidor se puede navegar en [localhost:5000](http://lo
 pip install -U -r requirements.txt
 ```
 
+## Por favor para que funcione la api, debe modificar en el microservicio de orden, en RabbitContoller.java metodo SendOrderPlaced. Debe agregar la siguiente linea al final del metodo TopicPublisher.publish("sell_flow", "order_placed", eventToSend);
+
 ## Casos de uso.
 
 ### Caso de uso 1: Consultar productos más vendidos.

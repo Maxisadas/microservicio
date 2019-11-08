@@ -1,4 +1,5 @@
 import app.model.order_scheme as orderScheme
+from datetime import datetime
 
 
 """
@@ -47,7 +48,8 @@ def total_sells():
             "id": "articleId",
             "quantity": {quantity}
             }], ...  
-        "totals_sell={int}"    
+        "total_sells": "{int}"
+        "lastStatic": "{date}"    
         }
         
 
@@ -58,12 +60,14 @@ def total_sells():
     """
     total_articles = 0
     total_sells = []
+    now = datetime.now()
     for article in orderScheme.loadAllArticles():
         total_articles += article["quantity"]
         total_sells.append(article)
     return {
         "articles_more_sold" : total_sells,
-        "totals_sell": total_articles
+        "totals_sell": total_articles,
+        "lastStatic": str(now.day)+"/"+str(now.month)+"/"+str(now.year)+" "+str(now.hour)+":"+str(now.minute)
         
     }
 
@@ -88,7 +92,8 @@ def sendRabbit():
             "id": "articleId",
             "quantity": {quantity}
             }], ...  
-        "totals_sell={int}"    
+        "total_sells={int}"
+        "lastStatic": "{date}"    
         }
         
 
@@ -96,11 +101,13 @@ def sendRabbit():
     """
     total_articles = 0
     total_sells = []
+    now = datetime.now()
     for article in orderScheme.loadAllArticles():
         total_articles += article["quantity"]
         total_sells.append(article)
     return {
         "articles_more_sold" : total_sells,
-        "totals_sell": total_articles
+        "totals_sell": total_articles,
+        "lastStatic": str(now.day)+"/"+str(now.month)+"/"+str(now.year)+" "+str(now.hour)+":"+str(now.minute)
         
     }
