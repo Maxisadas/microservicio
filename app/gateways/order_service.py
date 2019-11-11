@@ -2,7 +2,7 @@ import threading
 import traceback
 import pika
 import app.utils.config as config
-import services.total_sells as service
+import app.domain.services.total_sells as service
 import app.utils.json_serializer as json
 import app.gateways.stats_service as statsService
 

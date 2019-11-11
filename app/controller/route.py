@@ -2,7 +2,7 @@ import flask
 import app.utils.security as security
 import app.utils.errors as errors
 import app.utils.json_serializer as json
-import services.total_sells as service
+import app.domain.services.total_sells as service
 
 
 def init(app):

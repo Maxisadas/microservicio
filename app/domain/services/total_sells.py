@@ -1,4 +1,4 @@
-import app.model.order_scheme as orderScheme
+import app.domain.model.order_scheme as orderScheme
 from datetime import datetime
 
 
@@ -9,6 +9,8 @@ entoneces se le suma y se actualiza. En caso contrario, se crear el nuevo articu
 def saveOrders(event):
 
     list_articles_bd = orderScheme.loadAllArticles()
+    exist = False;
+
     if list_articles_bd.count() != 0:
         for article in event["message"]["articles"]:
             id_article = article["articleId"]
@@ -16,9 +18,13 @@ def saveOrders(event):
             for article_bd in orderScheme.loadAllArticles():
 
                 if id_article == article_bd["articleId"]:
-
+                    exist = True
+                if exist == True:    
                     article_bd["quantity"] = article_bd["quantity"] + article["quantity"]
                     orderScheme.updateArticles(article_bd)
+                else:
+                    orderScheme.saveArticles(article)
+                
     else:
         for article in event["message"]["articles"]:
             orderScheme.saveArticles(article)

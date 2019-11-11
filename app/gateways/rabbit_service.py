@@ -6,6 +6,7 @@ import traceback
 import pika
 import app.utils.config as config
 import app.utils.json_serializer as json
+import app.gateways.order_service as order_service
 
 
 
@@ -38,10 +39,12 @@ EVENT_CALLBACK = {
 
 def init():
     initAuth()
+    initOrder()
 
 def initAuth():
     authConsumer = threading.Thread(target=listenAuth)
     authConsumer.start()
+
 def listenAuth():
     """
     Básicamente eventos de logout enviados por auth.
@@ -90,3 +93,10 @@ def listenAuth():
     except Exception:
         print("RabbitMQ Auth desconectado, intentando reconectar en 10'")
         threading.Timer(10.0, initAuth).start()
+
+def initOrder():
+    _init_order()
+
+
+def _init_order():
+    order_service.init()
